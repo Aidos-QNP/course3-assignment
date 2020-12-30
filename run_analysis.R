@@ -35,41 +35,42 @@ dwTs<-cbind(dTsSbj, dTsY, dTsX)
 # then merge this two data sets by rows
 dbig<-rbind(dwTr, dwTs)
 
+# delete some big objects for optimize computer memory:
+rm(dTsSbj, dTrSbj, dTsX, dTsY, dTrX, dTrY, dwTr, dwTs)
 
+# to assign variables names first we need modify feature name set
+# by adding two new variable names
+names(dbig) <- c(c("subject", "activity"), dFt[,2])
 
-dbig[8000, 1:5]
+#step 2, subset mean and standart deviation columns:
+sbsMask<-grepl("-mean|-std", names(dbig))
+# we need to leave first two column, so lets include to mask:
+sbsMask[1:2] <- c(TRUE, TRUE)
+dmean<-dbig[,sbsMask]
 
-dim(dwTr)
-head(dwTr, 3)
-summary(dwTr)
-install.packages("tibble")
-library(tibble)
-d1<-as_tibble(d1)
+# step 3, descriptive activity names:
+nmAct <- c("Walking", "Walking Upstairs", 
+  "Walking Downstairs", "Sitting", "Standing", "Laying")
 
-d1
-head(d1)
-summary(d1)
-dim(d1)
-View(d1)
-d1<-as.numeric(d1)
-dim(d1)
-d1[[1]]
-class(d1)
-typeof(d1)
+dmean$activity <- factor(dmean$activity, levels= nmAct)
+tt <- factor(dmean$activity, levels= nmAct)
+levels(tt)
+head(factor(as.factor(dmean$activity), levels=nmAct))
+nmAct[2]
 
-d2<-as.data.frame(d1[[1]])
-length(d1[2, 1])
-head(d2)
-length(d2)
-dim(d2)
-typeof(d2)
-d2<-as.table(d2)
-names(d1)
-length(names(d1))
-d1
+summary(dmean[,2])
 
-substr(names(d1), 1, 100)
-tt<-d1[2, 1][[1]]
+dmean<-as_tibble(dmean)
+
+dmean
+dbig[4, 1:10]
+as_tibble(dbig)
+
+tt<-grep("mean", names(dbig), value=TRUE, ignore.case = TRUE) 
+length(tt)
 tt
-tt2<-strsplit(tt, " ")
-length(tt2)
+grep("-mean|-std", names(dbig), value=TRUE)
+View(dbig[1:4, tt])
+tr<-grep("fBodyAcc-bandsEnergy()", dFt[,2], value = TRUE)
+length(tr)
+tr
