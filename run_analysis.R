@@ -5,25 +5,28 @@
 
 pthTs_subj<-"test/subject_test.txt" # 2947x1 2-24 indexes
 pthTr_subj<-"train/subject_train.txt" # 7352x1 1-30 indexes
-pthTs_y<-"test/y_test.txt" # 2947x1 1-6 indexes
 pthTs_x<-"test/X_test.txt" # 2947x561 measurements
-pthTr_y<-"train/y_train.txt" # 7352x1 1-6 indexes
+pthTs_y<-"test/y_test.txt" # 2947x1 1-6 indexes
 pthTr_x<-"train/X_train.txt" # 7352x561 measurements
+pthTr_y<-"train/y_train.txt" # 7352x1 1-6 indexes
+pthFt<-"features.txt" # 561x2 names of the measurements (variables)
 
 pthBase<-"./data/UCI HAR Dataset/"
 
-dTrX <- read.table(paste0(pthBase, pthTr_x))
-dTrY <- read.table(paste0(pthBase, pthTr_y))
 dTsSbj <- read.table(paste0(pthBase, pthTs_subj))
 dTrSbj <- read.table(paste0(pthBase, pthTr_subj))
-dTsY<- read.table(paste0(pthBase, pthTs_y))
 dTsX<- read.table(paste0(pthBase, pthTs_x))
-# after reading and analyzing data with as_tibble (tibble library),
-# dim() and summary() I wrote result as comments in 6-11 lines: 
-# dimension and form of the data
+dTsY<- read.table(paste0(pthBase, pthTs_y))
+dTrX <- read.table(paste0(pthBase, pthTr_x))
+dTrY <- read.table(paste0(pthBase, pthTr_y))
+dFt<-  read.table(paste0(pthBase, pthFt))
+# after reading Read me file and analyzing data sets with 
+# as_tibble (tibble library), # dim() and summary() I wrote
+# result as comments in 6-11 lines: dimension and form of the data
 
+# step 1, merging data sets 
 
-dim(dTsY)
+dim(dFt)
 head(pthTs_y)
 summary(dTsY)
 install.packages("tibble")
