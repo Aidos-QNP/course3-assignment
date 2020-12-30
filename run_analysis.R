@@ -52,14 +52,18 @@ dmean<-dbig[,sbsMask]
 nmAct <- c("Walking", "Walking Upstairs", 
   "Walking Downstairs", "Sitting", "Standing", "Laying")
 
-dmean$activity <- factor(dmean$activity, levels= nmAct)
-tt <- factor(dmean$activity, levels= nmAct)
-levels(tt)
-head(factor(as.factor(dmean$activity), levels=nmAct))
-nmAct[2]
+dmean$activity <- as.factor(dmean$activity)
+levels(dmean$activity)<-nmAct
+
+
+
+head(fAct)
+head(dmean$activity)
+?as.factor
 
 summary(dmean[,2])
-
+install.packages("tibble")
+library(tibble)
 dmean<-as_tibble(dmean)
 
 # some tests:
