@@ -61,11 +61,11 @@ nmAct[2]
 summary(dmean[,2])
 
 dmean<-as_tibble(dmean)
-
+vfdgf
 dmean
 dbig[4, 1:10]
 as_tibble(dbig)
-
+gfgdf
 tt<-grep("mean", names(dbig), value=TRUE, ignore.case = TRUE) 
 length(tt)
 tt
