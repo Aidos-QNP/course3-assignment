@@ -61,7 +61,7 @@ nmAct[2]
 summary(dmean[,2])
 
 dmean<-as_tibble(dmean)
-vfdgf
+gfhfgh
 dmean
 dbig[4, 1:10]
 as_tibble(dbig)
