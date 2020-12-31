@@ -56,7 +56,6 @@ dmean$activity <- as.factor(dmean$activity)
 levels(dmean$activity)<-nmAct
 
 
-
 head(fAct)
 head(dmean$activity)
 ?as.factor
