@@ -82,15 +82,28 @@ names(dmean)<-nm
 
 # step 5
 library(reshape2)
-dty<-melt(dmean, id=c("subject", "activity"), 
+dml<-melt(dmean, id=c("subject", "activity"), 
           measure.vars = names(dmean[, 3:81]))
-names(dty)[3]<-"measurement"
+names(dml)[3]<-"measurement"
 
 
 library(dplyr)
-dty<-group_by(dty, subject, activity, measurement)
+dty<- dml %>% group_by(subject, activity, measurement) %>%
+    mutate(value=mean(value)) %>%
+    unique() %>%
+    arrange(subject, .by_group = TRUE)
+names(dty)[4]<-"mean"
 
-dty
+# code for writing to file and reading:
+# write.table(dty, "tidy_data_set.txt")
+# dd<-read.table("tidy_data_set.txt")
+
+
+
+dim(dd)
+head(dd)
+head(dty)
+dim(dty)
 dd<-filter(dty, (subject==1 & activity=="Walking"
                  & measurement == "timeBodyAccelerationMeanX"))
 #> mean(dd$value)
@@ -104,11 +117,10 @@ mean(dd$value)
 
 ?filter
 head(dty)
-dty3<-mutate(dty, value=mean(value))
+
 head(dty3)
 
-dty4<-unique(dty3)
-dty4<-arrange(dty4, subject, .by_group = TRUE)
+
 ?mutate
 
 
