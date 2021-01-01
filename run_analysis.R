@@ -82,8 +82,7 @@ dty<- dml %>% group_by(subject, activity, measurement) %>%
     arrange(subject, .by_group = TRUE)
 names(dty)[4]<-"mean"
 
-head(dty)
-
-# code for writing to file and reading:
-# write.table(dty, "tidy_data_set.txt")
+# write to file
+write.table(dty, "tidy_data_set.txt")
+# code for reading tidy data set file:
 # dd<-read.table("tidy_data_set.txt")
