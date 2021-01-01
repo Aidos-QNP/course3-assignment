@@ -4,6 +4,7 @@ Code book - Tidy data set
 ## subject
     Person's id number, who participated to experiments.
     Group of 30 volunteers within an age bracket of 19-48 years.
+    
     Integer values in 1:30 range.
 
 ## activity
@@ -22,8 +23,10 @@ Code book - Tidy data set
     *timeBodyAccelerationMeanX
     *timeBodyAccelerationMeanY
     *etc.
+    
     79 character values.
     
 ## mean
     average (mean) of the measurements for each activity and each subject
+    
     14220 numeric values.
