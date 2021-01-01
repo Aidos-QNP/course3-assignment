@@ -38,43 +38,113 @@ dbig<-rbind(dwTr, dwTs)
 # delete some big objects for optimize computer memory:
 rm(dTsSbj, dTrSbj, dTsX, dTsY, dTrX, dTrY, dwTr, dwTs)
 
-# to assign variables names first we need modify feature name set
+
+# ERROR: to assign variables names first we need modify feature name set
 # by adding two new variable names
-names(dbig) <- c(c("subject", "activity"), dFt[,2])
+# ERROR: names(dbig) <- c(c("subject", "activity"), dFt[,2])
 
 #step 2, subset mean and standart deviation columns:
-sbsMask<-grepl("-mean|-std", names(dbig))
+maskMean<-grepl("-mean|-std", dFt[,2])
 # we need to leave first two column, so lets include to mask:
-sbsMask[1:2] <- c(TRUE, TRUE)
-dmean<-dbig[,sbsMask]
+maskMean <- c(c(TRUE, TRUE), maskMean)
+dmean<-dbig[,maskMean]
+
 
 # step 3, descriptive activity names:
 nmAct <- c("Walking", "Walking Upstairs", 
   "Walking Downstairs", "Sitting", "Standing", "Laying")
+dmean[,2] <- factor(dmean[,2], labels = nmAct)
+dmean[,1] <- factor(dmean[,1], labels = c(1:30))
 
-dmean$activity <- as.factor(dmean$activity)
-levels(dmean$activity)<-nmAct
+# step 4, descriptive variable names:
+nm <- c(c("subject", "activity"), dFt[,2])
+nm<- nm[maskMean]
+
+# "BodyBody"can by replaced to "Body"
+nm<-gsub("BodyBody", "Body", nm)
+# some replacements based on lecture "04-01 Editing 
+# Text Variables" last slide
+nm<-gsub("^f", "freq", nm)
+nm<-gsub("^t", "time", nm)
+nm<-gsub("Acc", "Acceleration", nm)
+nm<-gsub("Mag", "Magnitude", nm)
+nm<-gsub("-mean\\(\\)", "Mean", nm)
+nm<-gsub("meanFreq", "MeanFreq", nm)
+nm<-gsub("-std\\(\\)", "Std", nm)
+nm<-gsub("-", "", nm)
+nm<-gsub("\\(\\)", "", nm)
+
+names(dmean)<-nm
+
+# library(tibble)
+# dmean<- as_tibble(dmean)
 
 
-head(fAct)
-head(dmean$activity)
-?as.factor
+# step 5
+library(reshape2)
+dty<-melt(dmean, id=c("subject", "activity"), 
+          measure.vars = names(dmean[, 3:81]))
+names(dty)[3]<-"measurement"
 
-summary(dmean[,2])
-install.packages("tibble")
-library(tibble)
-dmean<-as_tibble(dmean)
 
-# some tests:
+library(dplyr)
+dty<-group_by(dty, subject, activity, measurement)
+
+dty
+dd<-filter(dty, (subject==1 & activity=="Walking"
+                 & measurement == "timeBodyAccelerationMeanX"))
+#> mean(dd$value)
+#[1] 0.2773308
+
+
+dim(dd)
+head(dd)
+tail(dd)
+mean(dd$value)
+
+?filter
+head(dty)
+dty3<-mutate(dty, value=mean(value))
+head(dty3)
+
+dty4<-unique(dty3)
+dty4<-arrange(dty4, subject, .by_group = TRUE)
+?mutate
+
+
+
+
+dty4[500:518, ]
+dim(dty3)
+#dty3<-select(dty3, -value)
+
+dim(dty4)
+
+
+
+head(dty4, 8)
+
+dty4[75:85, ]
+?arrange
+?group_by
+library(plyr)
+
+dty2<-ddply(dty, .(measurement), summarize, sum=mean(count))
+
+warnings()
+head(dty)
+
+dty<-sapply(mean, dmean, list(dmean[,3:81]))
+
+library(dplyr)
+dmean<-group_by(dmean, subject, activity)
+
+
+library(reshape2)
+?dcast
+dty<- mutate(dmean, d)
+dim(dmean)
+unique(dmean)
 dmean
-dbig[4, 1:10]
-as_tibble(dbig)
-
-tt<-grep("mean", names(dbig), value=TRUE, ignore.case = TRUE) 
-length(tt)
-tt
-grep("-mean|-std", names(dbig), value=TRUE)
-View(dbig[1:4, tt])
-tr<-grep("fBodyAcc-bandsEnergy()", dFt[,2], value = TRUE)
-length(tr)
-tr
+?with
+sum(dmean[, 1]==30)
