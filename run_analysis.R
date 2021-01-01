@@ -1,7 +1,7 @@
 # sorry for my English!
 # My Github: https://github.com/Aidos-QNP/course3-assignment
 
-# exploring data sets with read.table(), 
+# step 0, exploring data sets with read.table(), 
 pthTs_subj <- "test/subject_test.txt" # 2947x1 2-24 indexes
 pthTr_subj <- "train/subject_train.txt" # 7352x1 1-30 indexes
 pthTs_x <- "test/X_test.txt" # 2947x561 values (measurements?)
@@ -18,20 +18,11 @@ dTsX <- read.table(paste0(pthBase, pthTs_x))
 dTsY <- read.table(paste0(pthBase, pthTs_y))
 dTrX <- read.table(paste0(pthBase, pthTr_x))
 dTrY <- read.table(paste0(pthBase, pthTr_y))
-dFt <-  read.table(paste0(pthBase, pthFt))
-# after reading Read me file and analyzing data sets with 
-# as_tibble (tibble library), dim() and summary() I wrote
-# result as comments in 5-11 lines: dimension and form of the data
-
-# I decide to organize variables (columns) so: "subject", 
-# "activity" and 561 features from features.txt
+dFt <- read.table(paste0(pthBase, pthFt))
 
 # step 1, merging data sets:
-# first, all train columns
 dwTr<-cbind(dTrSbj, dTrY, dTrX)
-# then all test columns
 dwTs<-cbind(dTsSbj, dTsY, dTsX)
-# then merge this two data sets by rows
 dbig<-rbind(dwTr, dwTs)
 
 # delete some big objects for optimize computer memory:
@@ -39,7 +30,6 @@ rm(dTsSbj, dTrSbj, dTsX, dTsY, dTrX, dTrY, dwTr, dwTs)
 
 #step 2, subset mean and standart deviation columns:
 maskMean<-grepl("-mean|-std", dFt[,2])
-# we need to leave first two column, so lets include to mask:
 maskMean <- c(c(TRUE, TRUE), maskMean)
 dmean<-dbig[,maskMean]
 
@@ -52,11 +42,9 @@ dmean[,1] <- factor(dmean[,1], labels = c(1:30))
 # step 4, descriptive variable names:
 nm <- c(c("subject", "activity"), dFt[,2])
 nm<- nm[maskMean]
-
 # "BodyBody"can by replaced to "Body"
 nm<-gsub("BodyBody", "Body", nm)
-# some replacements based on lecture "04-01 Editing 
-# Text Variables" last slide
+
 nm<-gsub("^f", "freq", nm)
 nm<-gsub("^t", "time", nm)
 nm<-gsub("Acc", "Acceleration", nm)
@@ -69,14 +57,15 @@ nm<-gsub("\\(\\)", "", nm)
 
 names(dmean)<-nm
 
-# step 5
+# step 5, generate tidy data set
 library(reshape2)
 dml<-melt(dmean, id=c("subject", "activity"), 
           measure.vars = names(dmean[, 3:81]))
 names(dml)[3]<-"measurement"
 
 library(dplyr)
-dty<- dml %>% group_by(subject, activity, measurement) %>%
+dty<- dml %>% 
+    group_by(subject, activity, measurement) %>%
     mutate(value=mean(value)) %>%
     unique() %>%
     arrange(subject, .by_group = TRUE)
