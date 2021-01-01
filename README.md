@@ -1,13 +1,14 @@
-# course3-assignment
 Getting and Cleaning Data course assignment
 ========================
 
-[ Sorry for my English! ]
+*[ Sorry for my English! ]*
+
+## run_analysis.R script
+
+Input raw data set is "Human Activity Recognition Using Smartphones Dataset" (Version 1.0) (Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto).
 
 run_analysis.R script does this:
-1. Merges the training and the test sets from
-    "Human Activity Recognition Using Smartphones Dataset" (Version 1.0) (Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto)
-    to create one data set.
+1. Merges the training and the test sets to create one data set.
 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
 3. Uses descriptive activity names to name the activities in the data set
 4. Appropriately labels the data set with descriptive variable names. 
@@ -51,5 +52,6 @@ Some replacements based on lecture "04-01 Editing Text Variables".
 
 Raw data set should be melted to meet the the principles of tidy data.
 Feature column names was converted to column and value of features converted to value column by melt() function (dplyr library). So there are 4 variables and 4 columns. 
-Next - the average of each variable for each activity and each subject. We need to mean each group, so first we need to create group by 3 variables (all except "value") by group_by() function. Then calculate mean by groups with replacing "value" column by mutate() function. Then unique() - to delete same rows, arrange() to sort and name "value" column to "mean". Result is tidy data set.
+
+Next - the average of each variable for each activity and each subject. We need to mean each group, so first we need to create group by 3 variables (all except "value") by group_by() function. Then calculate mean by groups with replacing "value" column by mutate() function. Then unique() - to delete same rows, arrange() to sort, then name "value" column to "mean". Result is tidy data set.
 Last, write tidy data set to file.
