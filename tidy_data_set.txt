@@ -1,4 +1,4 @@
-"subject " "activity" "measurement" "mean"
+"subject" "activity" "measurement" "mean"
 "1" "1" "Walking" "timeBodyAccelerationMeanX" 0.277330758736842
 "2" "1" "Walking" "timeBodyAccelerationMeanY" -0.0173838185273684
 "3" "1" "Walking" "timeBodyAccelerationMeanZ" -0.111148103547368
