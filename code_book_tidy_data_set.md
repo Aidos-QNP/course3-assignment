@@ -2,7 +2,8 @@ Code book - Tidy data set
 ======================
 
 ## subject
-    Person's id number, who participated to experiments. Group of 30 volunteers within an age bracket of 19-48 years.
+    Person's id number, who participated to experiments.
+    Group of 30 volunteers within an age bracket of 19-48 years.
     Integer values in 1:30 range.
 
 ## activity
@@ -13,7 +14,8 @@ Code book - Tidy data set
     4. "Sitting",
     5. "Standing",
     6. "Laying"
-  6 character values.
+    
+    6 character values.
 
 ## measurement
     Names of features, measurements of accelerometer and gyroscope signals.
@@ -25,13 +27,3 @@ Code book - Tidy data set
 ## mean
     average (mean) of the measurements for each activity and each subject
     14220 numeric values.
-
-
-
-
-
-mean
-
-
-
-
