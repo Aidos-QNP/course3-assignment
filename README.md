@@ -60,7 +60,7 @@ Last, tidy data set was wrote to file.
 
 ================
 
-##Files
+## Files
 - README.md  
 - run_analysis.R : Script generating tidy data from raw data set  
 - tidy_data_set.txt : Tidy data generated from run_analysis.R script
