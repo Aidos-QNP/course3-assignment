@@ -59,6 +59,7 @@ The average by groups (subject and activity) was calculated with aggregate() fun
 Last, tidy data set was wrote to file.
 
 ================
+
 ##Files
 - README.md  
 - run_analysis.R : Script generating tidy data from raw data set  
