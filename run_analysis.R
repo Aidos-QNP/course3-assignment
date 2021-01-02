@@ -71,7 +71,8 @@ dty<- dml %>%
     arrange(subject, .by_group = TRUE)
 names(dty)[4]<-"mean"
 
+dty
 # write to file
-write.table(dty, "tidy_data_set.txt", row.name=FALSE)
+#write.table(dty, "tidy_data_set.txt", row.name=FALSE)
 # code for reading tidy data set file:
 # dd<-read.table("tidy_data_set.txt")
