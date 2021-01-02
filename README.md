@@ -21,8 +21,8 @@ Every step was analyzed with as_tibble() (tibble library), head(), tail(), summa
 
 ### Step 0. Analyze
 
-Exploring data sets with read.table(). After reading Read me file and analyzing data sets I wrote results as comments at the end of 5-11 lines of script: dimension and type of the data for each raw file. Based on the principles of tidy data there is 5 variables: subject (human id), activity, name of measurement (feature), measurement number and value of measurement
-I decide to organize columns so: "subject", "activity" and 561 features from features.txt
+Exploring data sets with read.table(). After reading Read me file and analyzing data sets I wrote results as comments at the end of 5-11 lines of script: dimension and type of the data for each raw file. Based on the principles of tidy data there is 5 variables: subject (person id), activity, name of measurement (feature), measurement sample number and value of measurement. Measurement sample number will be collapsed after calculating averages (in step 5), so we can ignore it.
+We can organize columns in this order: "subject", "activity" and 561 features from features.txt
 
 ### Step 1. Merging data sets
 
