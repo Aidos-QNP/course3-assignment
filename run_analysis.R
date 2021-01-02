@@ -10,7 +10,7 @@ pthTr_x <- "train/X_train.txt" # 7352x561 values (measurements?)
 pthTr_y <- "train/y_train.txt" # 7352x1 1-6 indexes
 pthFt <- "features.txt" # 561x2 names of the measurements (variables)
 
-pthBase <- "./data/UCI HAR Dataset/"
+pthBase <- "./UCI HAR Dataset/"
 
 dTsSbj <- read.table(paste0(pthBase, pthTs_subj))
 dTrSbj <- read.table(paste0(pthBase, pthTr_subj))
@@ -72,6 +72,6 @@ dty<- dml %>%
 names(dty)[4]<-"mean"
 
 # write to file
-write.table(dty, "tidy_data_set.txt")
+write.table(dty, "tidy_data_set.txt", row.name=FALSE)
 # code for reading tidy data set file:
 # dd<-read.table("tidy_data_set.txt")
