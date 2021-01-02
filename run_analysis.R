@@ -58,21 +58,14 @@ nm<-gsub("\\(\\)", "", nm)
 names(dmean)<-nm
 
 # step 5, generate tidy data set
-library(reshape2)
-dml<-melt(dmean, id=c("subject", "activity"), 
-          measure.vars = names(dmean[, 3:81]))
-names(dml)[3]<-"measurement"
-
+dty<-aggregate(dmean[3:length(dmean)], by=list(subject=dmean$subject, 
+          activity=dmean$activity), FUN=mean)
 library(dplyr)
-dty<- dml %>% 
-    group_by(subject, activity, measurement) %>%
-    mutate(value=mean(value)) %>%
-    unique() %>%
-    arrange(subject, .by_group = TRUE)
-names(dty)[4]<-"mean"
+dty<-arrange(dty, dty$subject)
 
 dty
-# write to file
-#write.table(dty, "tidy_data_set.txt", row.name=FALSE)
+
+# code for writing to file:
+# write.table(dty, "tidy_data_set.txt", row.name=FALSE)
 # code for reading tidy data set file:
-# dd<-read.table("tidy_data_set.txt")
+# dd<-read.table("tidy_data_set.txt", header=TRUE)
