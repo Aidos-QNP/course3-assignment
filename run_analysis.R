@@ -11,7 +11,7 @@ pthTr_y <- "train/y_train.txt" # 7352x1 1-6 indexes
 pthFt <- "features.txt" # 561x2 names of the measurements (variables)
 
 pthBase <- "./UCI HAR Dataset/"
-
+ 
 dTsSbj <- read.table(paste0(pthBase, pthTs_subj))
 dTrSbj <- read.table(paste0(pthBase, pthTr_subj))
 dTsX <- read.table(paste0(pthBase, pthTs_x))
